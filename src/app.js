@@ -1,14 +1,14 @@
 import cors from "cors";
 import express from "express";
-import globalErrorHandler from "./errorHandler/globalErrorHandler.js";
-// import route from "./routes/index.js";
-// import config from "./config/index.js";
+import globalErrorHandler from "./utils/errorHandler/globalErrorHandler.js";
+import route from "./routes/index.js";
+import config from "./utils/config/index.js";
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-// app.use(config.api_route, route);
+app.use(config.api_route, route);
 app.get("/", (req, res) => {
   res.status(200).json("server is running");
 });

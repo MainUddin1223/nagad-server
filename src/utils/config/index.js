@@ -9,4 +9,5 @@ export default {
   jwt_access_expires_in: process.env.JWT_ACCESS_EXPIRES_IN,
   bcrypt_salt_rounds: process.env.BCRYPT_SALT_ROUNDS,
   api_route: process.env.API_ROUTE,
+  server_url: process.env.SERVER_URL,
 };
