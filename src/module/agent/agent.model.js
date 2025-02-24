@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
 
-const userTransactionSchema = new Schema(
+const agentTransactionSchema = new Schema(
   {
     transactionType: {
       type: String,
@@ -30,6 +30,6 @@ const userTransactionSchema = new Schema(
   }
 );
 
-const UserTransaction = model("userTransaction", userTransactionSchema);
+const AgentTransaction = model("agentTransaction", agentTransactionSchema);
 
-export default UserTransaction;
+export default AgentTransaction;
