@@ -3,6 +3,7 @@ import User from "./auth.model.js";
 import { jwtHelpers } from "../../utils/authHelper/jwtHelper.js";
 import config from "../../utils/config/index.js";
 import ApiError from "../../utils/errorHandler/apiErrorHandler.js";
+import UserTransaction from "../user/use.model.js";
 
 const user = new User();
 
@@ -72,9 +73,23 @@ const loginUser = async (payload) => {
 };
 
 const getAuthInfo = async (_id) => {
-  const authInfo = await User.findById({ _id }).select("-password");
+  const authInfo = await User.findById({ _id }).select("-password").populate();
   if (authInfo) {
     const { name, email, _id, role, phone } = authInfo;
+    if (role === "agent") {
+      const transactions = await UserTransaction.find({ userId: _id })
+        .populate("agentId", "name phone")
+        .sort({ createdAt: -1 });
+      return { authInfo: { name, email, _id, role, phone }, transactions };
+    } else if (role === "user") {
+      const transactions = await UserTransaction.find({
+        agentId: _id,
+      })
+        .populate("userId", "name phone")
+        .sort({ createdAt: -1 });
+      return { authInfo: { name, email, _id, role, phone }, transactions };
+    }
+
     return { authInfo: { name, email, _id, role, phone } };
   } else {
     throw new ApiError(StatusCodes.NOT_FOUND, "User info not found");
