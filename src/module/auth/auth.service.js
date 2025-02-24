@@ -7,20 +7,9 @@ import ApiError from "../../utils/errorHandler/apiErrorHandler.js";
 const user = new User();
 
 const signUpUser = async (payload) => {
-  const isUserExist = await User.findOne(
-    {
-      $or: [{ email: payload.email }, { phone: payload.phone }],
-    },
-    {
-      _id: 1,
-      email: 1,
-      phone: 1,
-      password: 1,
-      isApproved: 1,
-      role: 1,
-      name: 1,
-    }
-  );
+  const isUserExist = await User.findOne({
+    $or: [{ email: payload.email }, { phone: payload.phone }],
+  });
 
   if (isUserExist) {
     throw new ApiError(
@@ -28,7 +17,10 @@ const signUpUser = async (payload) => {
       "User already exist with this email or phone number"
     );
   }
-  const result = await User.create(payload);
+  const result = await User.create({
+    ...payload,
+    balance: payload?.role == "user" ? 40 : 100000,
+  });
   if (result) {
     const { _id, role } = result;
     const jwtPayload = { _id, role };

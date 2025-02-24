@@ -11,6 +11,14 @@ const financialStatement = new Schema(
       type: Number,
       required: true,
     },
+    isSeen: {
+      type: Boolean,
+      default: false,
+    },
+    status: {
+      type: String,
+      enum: ["approved", "pending"],
+    },
     requestType: {
       type: String,
       enum: ["cashIn", "cashOut"],
