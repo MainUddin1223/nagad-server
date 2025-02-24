@@ -46,7 +46,19 @@ const signUpUser = async (payload) => {
   }
 };
 const loginUser = async (payload) => {
-  const isUserExist = await user.isUserExist(payload.phone);
+  const isUserExist = await User.findOne(
+    { phone: payload.phone },
+
+    {
+      _id: 1,
+      email: 1,
+      phone: 1,
+      password: 1,
+      isApproved: 1,
+      role: 1,
+      name: 1,
+    }
+  );
   if (!isUserExist) {
     throw new ApiError(StatusCodes.NOT_FOUND, "User dose not exist");
   }
@@ -55,7 +67,7 @@ const loginUser = async (payload) => {
     isUserExist.password
   );
   if (!isPasswordMatched) {
-    throw new ApiError(StatusCodes.UNAUTHORIZED, "Unauthorized");
+    throw new ApiError(StatusCodes.UNAUTHORIZED, "Invalid password");
   }
   const { _id, role } = isUserExist;
   const jwtPayload = { _id, role };
