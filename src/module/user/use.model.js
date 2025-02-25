@@ -11,7 +11,7 @@ const userTransactionSchema = new Schema(
       ref: "user",
       required: true,
     },
-    userId: {
+    senderId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "user",
       required: true,

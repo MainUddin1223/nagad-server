@@ -38,7 +38,7 @@ export const registerValidationSchema = Joi.object({
     }),
   phone: Joi.string()
     .optional()
-    .pattern(/^(\+88)[0-9]{11}$/)
+    .pattern(/^(\+8801)[0-9]{9}$/)
     .messages({
       "string.pattern.base":
         "The phone number must be 14 digits and start with +880.",
@@ -48,7 +48,7 @@ export const registerValidationSchema = Joi.object({
 export const loginValidationSchema = Joi.object({
   phone: Joi.string()
     .optional()
-    .pattern(/^(\+88)[0-9]{11}$/)
+    .pattern(/^(\+8801)[0-9]{9}$/)
     .messages({
       "string.pattern.base":
         "The phone number must be 14 digits and start with +880.",
