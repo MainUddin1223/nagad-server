@@ -2,6 +2,7 @@ import express from "express";
 import config from "../utils/config/index.js";
 import authRouter from "../module/auth/auth.route.js";
 import userRouter from "../module/user/user.route.js";
+import agentRouter from "../module/agent/agent.route.js";
 const router = express.Router();
 const defaultRoutes = [
   {
@@ -12,10 +13,10 @@ const defaultRoutes = [
     path: "/user",
     route: userRouter.userRouter,
   },
-  //   {
-  //     path: "/renter",
-  //     route: renterRouter.renterRouter,
-  //   },
+  {
+    path: "/agent",
+    route: agentRouter.agentRouter,
+  },
   //   {
   //     path: "/house",
   //     route: houseRouter.houseRouter,

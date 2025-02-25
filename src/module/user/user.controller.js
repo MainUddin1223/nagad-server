@@ -3,7 +3,10 @@ import sendResponse from "../../utils/responseHandler/responseHandler.js";
 import catchAsync from "../../utils/errorHandler/catchAsyncHandler.js";
 import { userService } from "./user.service.js";
 import ApiError from "../../utils/errorHandler/apiErrorHandler.js";
-import { sendMoneyValidationSchema } from "./user.validator.js";
+import {
+  cashOutValidationSchema,
+  sendMoneyValidationSchema,
+} from "./user.validator.js";
 
 const getTransactions = catchAsync(async (req, res) => {
   const result = await userService.getTransactions(req.user._id);
@@ -54,7 +57,7 @@ const sendMoney = catchAsync(async (req, res) => {
 });
 const cashOut = catchAsync(async (req, res) => {
   const payload = req.body;
-  const { error } = sendMoneyValidationSchema.validate(payload);
+  const { error } = cashOutValidationSchema.validate(payload);
   if (error) {
     sendResponse(res, {
       statusCode: StatusCodes.NOT_ACCEPTABLE,

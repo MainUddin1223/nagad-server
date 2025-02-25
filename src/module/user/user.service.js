@@ -15,10 +15,6 @@ const getTransactions = async (userId) => {
 };
 
 const getTransactionById = async (_id, userId) => {
-  if (!mongoose.Types.ObjectId.isValid(_id)) {
-    throw new ApiError(StatusCodes.BAD_REQUEST, "Invalid transaction ID");
-  }
-
   const transaction = await UserTransaction.findOne({
     _id,
     $or: [{ senderId: userId }, { receiverId: userId }],

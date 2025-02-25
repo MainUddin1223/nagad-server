@@ -9,7 +9,6 @@ import { StatusCodes } from "http-status-codes";
 
 const registerUser = catchAsync(async (req, res) => {
   const payload = req.body;
-  console.log(payload);
   const { error } = registerValidationSchema.validate(req.body);
   if (error) {
     sendResponse(res, {
