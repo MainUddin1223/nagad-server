@@ -4,9 +4,9 @@ const agentTransactionSchema = new Schema(
   {
     transactionType: {
       type: String,
-      enum: ["cashIn", "cashOut", "bonus"],
+      enum: ["cashOut", "sendMoney", "bonus", "withdraw"],
     },
-    agentId: {
+    senderId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "user",
       required: true,

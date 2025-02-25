@@ -8,7 +8,7 @@ export const sendMoneyValidationSchema = Joi.object({
     "any.required": "Amount is required",
   }),
   receiverPhone: Joi.string()
-    .optional()
+    .required()
     .pattern(/^(\+8801)[0-9]{9}$/)
     .messages({
       "string.pattern.base":

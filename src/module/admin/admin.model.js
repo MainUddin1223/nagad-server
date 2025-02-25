@@ -29,6 +29,37 @@ const financialStatement = new Schema(
   }
 );
 
-const FinancialStatement = model("financialStatement", financialStatement);
+const adminTransactionSchema = new Schema(
+  {
+    transactionType: {
+      type: String,
+      enum: ["cashOutFee", "agentCashIn", "withdraw"],
+    },
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "user",
+      required: true,
+    },
+    isSeen: {
+      type: Boolean,
+      default: false,
+    },
+    amount: {
+      type: Number,
+      required: true,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
 
-export default FinancialStatement;
+export const AdminTransaction = model(
+  "adminTransaction",
+  adminTransactionSchema
+);
+
+export const FinancialStatement = model(
+  "financialStatement",
+  financialStatement
+);
