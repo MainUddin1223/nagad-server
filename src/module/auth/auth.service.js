@@ -77,13 +77,17 @@ const getAuthInfo = async (_id) => {
   if (authInfo) {
     const { name, email, _id, role, phone } = authInfo;
     if (role === "agent") {
-      const transactions = await UserTransaction.find({ userId: _id })
+      const transactions = await UserTransaction.countDocuments({
+        userId: _id,
+        isSeen: false,
+      })
         .populate("agentId", "name phone")
         .sort({ createdAt: -1 });
       return { authInfo: { name, email, _id, role, phone }, transactions };
     } else if (role === "user") {
-      const transactions = await UserTransaction.find({
+      const transactions = await UserTransaction.countDocuments({
         agentId: _id,
+        isSeen: false,
       })
         .populate("userId", "name phone")
         .sort({ createdAt: -1 });

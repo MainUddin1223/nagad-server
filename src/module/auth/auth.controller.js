@@ -29,7 +29,7 @@ const registerUser = catchAsync(async (req, res) => {
     const result = await authService.signUpUser(payload);
     sendResponse(res, {
       statusCode: StatusCodes.OK,
-      success: false,
+      success: true,
       message: "Sign up successful",
       data: result,
     });
@@ -50,7 +50,7 @@ const loginUser = catchAsync(async (req, res) => {
     const result = await authService.loginUser(payload);
     sendResponse(res, {
       statusCode: StatusCodes.OK,
-      success: false,
+      success: true,
       message: "Login successful",
       data: result,
     });
@@ -61,7 +61,7 @@ const auth = catchAsync(async (req, res) => {
   const result = await authService.getAuthInfo(req.user._id);
   sendResponse(res, {
     statusCode: StatusCodes.OK,
-    success: false,
+    success: true,
     message: "Data Retrieved successfully",
     data: result,
   });
