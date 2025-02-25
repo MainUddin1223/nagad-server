@@ -1,7 +1,7 @@
 import ApiError from "../../utils/errorHandler/apiErrorHandler.js";
 import { StatusCodes } from "http-status-codes";
 import mongoose from "mongoose";
-import AgentTransaction from "./agent.model.js";
+import { AgentTransaction, CashRequisition } from "./agent.model.js";
 import User from "../auth/auth.model.js";
 import UserTransaction from "../user/use.model.js";
 
@@ -66,6 +66,31 @@ const sendMoney = async (payload) => {
   }
 };
 
+const cashRequisition = async (payload) => {
+  const getAgentInfo = await User.findById(payload.agentId);
+  if (getAgentInfo.balance < payload.amount) {
+    throw new ApiError(StatusCodes.PAYMENT_REQUIRED, "Insufficient balance");
+  }
+  const result = await CashRequisition.create(payload);
+  if (!result) {
+    throw new ApiError(
+      StatusCodes.INTERNAL_SERVER_ERROR,
+      "Failed to create requisition"
+    );
+  }
+  return { message: "Requisition created successfully" };
+};
+
+const getRequisition = async (payload) => {
+  const result = await CashRequisition.find({
+    agentId: payload.agentId,
+    requisitionType: payload.requisitionType,
+  });
+  return result;
+};
+
 export const agentService = {
   sendMoney,
+  cashRequisition,
+  getRequisition,
 };

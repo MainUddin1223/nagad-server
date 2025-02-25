@@ -46,6 +46,6 @@ const verifyAuthWithRole = (allowedRoles) => {
   };
 };
 const verifyUser = verifyAuthWithRole(["user", "admin"]);
-const verifyAgent = verifyAuthWithRole(["renter", "admin"]);
+const verifyAgent = verifyAuthWithRole(["agent", "admin"]);
 const verifyAdmin = verifyAuthWithRole(["admin"]);
 export { verifyAuth, verifyUser, verifyAgent, verifyAdmin };

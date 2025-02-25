@@ -30,6 +30,37 @@ const agentTransactionSchema = new Schema(
   }
 );
 
-const AgentTransaction = model("agentTransaction", agentTransactionSchema);
+const cashRequisition = new Schema(
+  {
+    requisitionType: {
+      type: String,
+      enum: ["cashIn", "withdraw"],
+    },
+    agentId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "user",
+      required: true,
+    },
+    isSeen: {
+      type: Boolean,
+      default: false,
+    },
+    amount: {
+      type: Number,
+      required: true,
+    },
+    isApproved: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
 
-export default AgentTransaction;
+export const CashRequisition = model("cashRequisition", cashRequisition);
+export const AgentTransaction = model(
+  "agentTransaction",
+  agentTransactionSchema
+);

@@ -3,8 +3,8 @@ import ApiError from "../../utils/errorHandler/apiErrorHandler.js";
 import { StatusCodes } from "http-status-codes";
 import User from "../auth/auth.model.js";
 import mongoose from "mongoose";
-import AgentTransaction from "../agent/agent.model.js";
 import { AdminTransaction } from "../admin/admin.model.js";
+import { AgentTransaction } from "../agent/agent.model.js";
 
 const getTransactions = async (userId) => {
   const transactions = await UserTransaction.find({
